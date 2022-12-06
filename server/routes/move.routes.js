@@ -1,4 +1,4 @@
-const MoviceController = require('../controllers/movie.controller');
+const MovieController = require('../controllers/movie.controller');
 
 module.exports = app => {
     app.get('/api/createMovie', MovieController.createMovie);
