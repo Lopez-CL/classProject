@@ -5,7 +5,7 @@ const port = 8000;
 app.use(cors())
 app.use(express.json(), express.urlencoded({ extended: true }));
 require('./config/mongoose.config');
-require('./routes/person.routes')(app);
+require('./routes/movie.routes')(app);
 
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
