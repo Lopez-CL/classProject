@@ -1,23 +1,23 @@
 const Movie = require('../models/movie.model');
 
-module.exports.createMovie = (res, req) => {
+module.exports.createMovie = (req, res) => {
     const {body} = req;
     Movie.create(body)
         .then((newMovie) => res.json(newMovie))
         .catch((err) => console.log(err));
 };
-module.exports.getAllMovies = (res, req) => {
+module.exports.getAllMovies = (req, res) => {
     Movie.find()
         .then((allMovies) => res.json(allMovies))
         .catch((err) => console.log(err));
 };
-module.exports.getMovieById = (res, req) => {
+module.exports.getMovieById = (req, res) => {
     const {params} = req;
     Movie.findOne({_id: params._id})
         .then((movie) => res.json(movie))
         .catch((err) => console.log(err));
 };
-module.exports.updateMovie = (res, req) => {
+module.exports.updateMovie = (req, res) => {
     const {body, params} = req;
     Movie.findOneAndUpdate({_id: params._id}, body, {
         new: true,
@@ -26,7 +26,7 @@ module.exports.updateMovie = (res, req) => {
         .then((updatedMovie) => res.json(updatedMovie))
         .catch((err) => console.log(err));
 };
-module.exports.deleteMovie = (res, req) => {
+module.exports.deleteMovie = (req, res) => {
     const {params} = req;
     Movie.deleteOne({_id: params._id})
         .then((result) => res.json(result))

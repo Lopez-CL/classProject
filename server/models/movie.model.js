@@ -2,7 +2,18 @@ const mongoose = require('mongoose');
 
 const MovieSchema = mongoose.Schema({
     title: {
-        type:String,
+        type:String
+    },
+    director:{
+        type: String
+    },
+    rating: {
+        type: String,
+        enum: ['P','PG','PG-13','R','NC-17']
+        //enumerable object/array. Sets the value value options to whatever is provided.
+    },
+    genre: {
+        type: String,
         enum: [
             'Comedy',
             'Drama',
@@ -21,18 +32,10 @@ const MovieSchema = mongoose.Schema({
             'Horor/Comedy',
             'Kung-fu',
             'Bollywood'
-        ]
-    },
-    rating: {
-        type: String,
-        enum: ['P','PG','PG-13','R','NC-17']
-        //enumerable object/array. Sets the value value options to whatever is provided.
-    },
-    genre: {
-        type: String
+        ],
     },
     releaseYear: {
-        releaseYear: Number
+        type: Number
     },
     boxOffice: {
         type: Number
