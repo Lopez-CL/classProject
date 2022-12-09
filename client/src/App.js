@@ -1,11 +1,14 @@
 
 import './App.css';
+// import React, {useState} from 'react';
 import MovieForm from './components/MovieForm';
 import MovieList from './components/MovieList';
+import OneMovie from './components/OneMovie';
+import Update from './components/Update';
 import NavBar from './components/NavBar';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 function App() {
-  // const [movies,setMovies] = useState([]);
+  // const [movies,setMovies] = useState('secret film');
   return (
     <div className="App">
       {/* <MovieForm/>
@@ -13,8 +16,10 @@ function App() {
       <BrowserRouter>
       <NavBar/>
         <Routes>
-          <Route path='/form' element={<MovieForm/>}/>
+          <Route path='/form' element={<MovieForm />}/>
           <Route path='/list' element={<MovieList/>}/>
+          <Route path='/onemovie/:_id' element={<OneMovie/>}/>
+          <Route path='/edit/movie/:_id' element={<Update/>}/>
         </Routes>
       </BrowserRouter>
     </div>

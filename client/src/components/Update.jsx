@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react'
+import { useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
 
-const MovieForm = () => {
+const Update = () => {
     const [title,setTitle] = useState('');
     const [director,setDirector] = useState('');
     const [rating,setRating] = useState('');
@@ -11,11 +11,30 @@ const MovieForm = () => {
     const [boxOffice,setBoxOffice] = useState('');
     const [kidFriendly,setKidFriendly] = useState('');
     const [boxArt,setBoxArt] = useState('');
+    const [movie, setMovie] = useState({})
+    const {_id} = useParams();
     const navigate = useNavigate();
-    // const {movies, setMovies} = props;
-    const submitHandler = (e) =>{
+
+    useEffect(() =>{
+        axios.get(`http://localhost:8000/api/getMovie/${_id}`)
+        .then(res => {
+            setTitle(res.data.title)
+            setDirector(res.data.director)
+            setRating(res.data.rating)
+            setGenre(res.data.genre)
+            setReleaseYear(res.data.releaseYear)
+            setBoxOffice(res.data.boxOffice)
+            setKidFriendly(res.data.kidFriendly)
+            setBoxArt(res.data.boxArt)
+            setTitle(res.data.title)
+            setTitle(res.data.title)
+        })
+        .catch(err => console.log(err))
+    },[])
+
+    const updateMovie = (e) =>{
         e.preventDefault();
-        axios.post('http://localhost:8000/api/createMovie', {
+        axios.put(`http://localhost:8000/api/updateMovie/${_id}`, {
             title,
             director,
             rating,
@@ -26,32 +45,21 @@ const MovieForm = () => {
             boxArt
         })
         .then(res =>{
-            console.log(res);
-            console.log(res.data);
+            console.log(res.data)
             navigate('/list')
-            // setMovies([...movies,res.data])
         })
         .catch(err => console.log(err))
-        setTitle('');
-        setDirector('');
-        setRating('');
-        setRating('');
-        setGenre('');
-        setReleaseYear('');
-        setBoxOffice('');
-        setKidFriendly('');
-        setBoxArt('');
     }
     return (
         <div className='col-6 mx-auto'>
-            <h1>Create A Movie:</h1>
-            <form onSubmit={submitHandler}>
+            <h1>Update Movie:</h1>
+            <form onSubmit={updateMovie}>
                 <label className='form-label' htmlFor="">Title:</label>
                 <input className='form-control' type="text" onChange={e =>setTitle(e.target.value)} value={title} />
                 <label className='form-label' htmlFor="">Director:</label>
                 <input className='form-control' type="text" onChange={e =>setDirector(e.target.value)} value={director} />
                 <label className='form-label' htmlFor="">Rating:</label>
-                <select className='form-control' type="text" onChange={e =>setRating(e.target.value)}>
+                <select className='form-control' type="text" onChange={e =>setRating(e.target.value)} value={rating}>
                     <option value='G'>G</option>
                     <option value='PG' >PG</option>
                     <option value='PG-13' >PG-13</option>
@@ -59,7 +67,7 @@ const MovieForm = () => {
                     <option value='NC-17' >NC-17</option>
                 </select>
                 <label className='form-label' htmlFor="">Genre:</label>
-                <select className='form-control' type="text" onChange={e =>setGenre(e.target.value)}>
+                <select className='form-control' type="text" onChange={e =>setGenre(e.target.value)} value={genre}>
                     <option value='Comedy'>Comedy</option>
                     <option value='Drama'>Drama</option>
                     <option value='Horror'>Horror</option>
@@ -91,4 +99,4 @@ const MovieForm = () => {
     )
 }
 
-export default MovieForm
+export default Update
