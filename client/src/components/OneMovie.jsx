@@ -16,7 +16,7 @@ const OneMovie = () => {
     const deleteMovie = (filmId) =>{
         axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`)
             .then( res => {
-                navigate('/list')
+                alert('movie deleted!');
             })
     }
     return (
