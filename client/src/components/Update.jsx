@@ -12,6 +12,7 @@ const Update = () => {
     const [kidFriendly,setKidFriendly] = useState('');
     const [boxArt,setBoxArt] = useState('');
     const [movie, setMovie] = useState({})
+    const [errors, setErrors] = useState({})
     const {_id} = useParams();
     const navigate = useNavigate();
 
@@ -29,7 +30,9 @@ const Update = () => {
             setTitle(res.data.title)
             setTitle(res.data.title)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+        })
     },[])
 
     const updateMovie = (e) =>{
@@ -48,18 +51,25 @@ const Update = () => {
             console.log(res.data)
             navigate('/list')
         })
-        .catch(err => console.log(err))
+        .catch((err) => {
+            console.log('error is caught on the front-end')
+            setErrors(err.response.data.errors);
+        })
     }
     return (
         <div className='col-6 mx-auto'>
             <h1>Update Movie:</h1>
             <form onSubmit={updateMovie}>
                 <label className='form-label' htmlFor="">Title:</label>
+                {errors.title?<p className='text-danger'>{errors.title.message}</p>:''}
                 <input className='form-control' type="text" onChange={e =>setTitle(e.target.value)} value={title} />
                 <label className='form-label' htmlFor="">Director:</label>
+                {errors.director?<p className='text-danger'>{errors.director.message}</p>:''}
                 <input className='form-control' type="text" onChange={e =>setDirector(e.target.value)} value={director} />
                 <label className='form-label' htmlFor="">Rating:</label>
+                {errors.rating?<p className='text-danger'>{errors.rating.message}</p>:''}
                 <select className='form-control' type="text" onChange={e =>setRating(e.target.value)} value={rating}>
+                    <option>Select a Rating</option>
                     <option value='G'>G</option>
                     <option value='PG' >PG</option>
                     <option value='PG-13' >PG-13</option>
@@ -67,7 +77,9 @@ const Update = () => {
                     <option value='NC-17' >NC-17</option>
                 </select>
                 <label className='form-label' htmlFor="">Genre:</label>
+                {errors.genre?<p className='text-danger'>{errors.genre.message}</p>:''}
                 <select className='form-control' type="text" onChange={e =>setGenre(e.target.value)} value={genre}>
+                    <option>Select a Genre</option>
                     <option value='Comedy'>Comedy</option>
                     <option value='Drama'>Drama</option>
                     <option value='Horror'>Horror</option>
@@ -86,12 +98,16 @@ const Update = () => {
                     <option value='Bollywood'>Bollywood</option>
                 </select>
                 <label className='form-label' htmlFor="">Release Date:</label>
+                {errors.releaseYear?<p className='text-danger'>{errors.releaseYear.message}</p>:''}
                 <input className='form-control' type="number" onChange={e =>setReleaseYear(e.target.value)} value={releaseYear}/>
                 <label className='form-label' htmlFor="">Box Office</label>
+                {errors.boxOffice?<p className='text-danger'>{errors.boxOffice.message}</p>:''}
                 <input className='form-control' type="number" onChange={e =>setBoxOffice(e.target.value)} value={boxOffice}/>
                 <label className='form-label' htmlFor="">Kid Friendly?</label>
+                {errors.kidFriendly?<p className='text-danger'>{errors.kidFriendly.message}</p>:null}
                 <input className='form-control' type="text" onChange={e =>setKidFriendly(e.target.value)} value={kidFriendly} />
                 <label className='form-label' htmlFor="">Film Poster</label>
+                {errors.boxArt?<p className='text-danger'>{errors.boxArt.message}</p>:''}
                 <input className='form-control' type="text" onChange={e =>setBoxArt(e.target.value)} value={boxArt}/><br></br>
                 <input className='form-control btn btn-primary' type="submit" value='Add Film'/>
             </form>
