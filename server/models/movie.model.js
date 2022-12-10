@@ -11,7 +11,7 @@ const MovieSchema = mongoose.Schema({
     },
     rating: {
         type: String,
-        enum: ['P','PG','PG-13','R','NC-17'],
+        enum: ['G','PG','PG-13','R','NC-17'],
         required: [true, 'rating is required!']
         //enumerable object/array. Sets the value value options to whatever is provided.
     },
