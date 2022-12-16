@@ -7,14 +7,14 @@ const OneMovie = () => {
     const [movie, setMovie] = useState({});
     const navigate = useNavigate();
     useEffect(() => {
-    axios.get(`http://localhost:8000/api/getMovie/${_id}`)
+    axios.get(`http://localhost:8000/api/getMovie/${_id}`, {withCredentials:true})
         .then(res => {
             setMovie(res.data)
         })
         .catch(err => console.log(err))
     }, [])
     const deleteMovie = (filmId) =>{
-        axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`)
+        axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`,)
             .then( res => {
                 alert('movie deleted!');
             })

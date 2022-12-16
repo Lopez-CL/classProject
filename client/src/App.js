@@ -6,6 +6,8 @@ import MovieList from './components/MovieList';
 import OneMovie from './components/OneMovie';
 import Update from './components/Update';
 import NavBar from './components/NavBar';
+import Register from './components/Register';
+import Login from './components/Login';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 function App() {
   // const [movies,setMovies] = useState('secret film');
@@ -20,6 +22,8 @@ function App() {
           <Route path='/list' element={<MovieList/>}/>
           <Route path='/onemovie/:_id' element={<OneMovie/>}/>
           <Route path='/edit/movie/:_id' element={<Update/>}/>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/login' element={<Login/>}/>
         </Routes>
       </BrowserRouter>
     </div>

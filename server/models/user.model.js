@@ -32,4 +32,18 @@ UserSchema.pre('save', async function(next){
     }
 })
 
+//virtualfield
+UserSchema.virtual('confirmPassword')
+.get(()=>this._confirmPassword)
+.set(value=>this._confirmPassword = value)
+
+// Mongoose Middleware
+UserSchema.pre('validate',function(next){
+    if(this.password !== this.confirmPassword){
+        this.invalidate('confirmPassword','Password must match confirmPassword')
+        // the follow string after "confirm password" must be word for word this. I'm not sure why.
+    }
+    next()
+})
+
 module.exports = mongoose.model('User',UserSchema)

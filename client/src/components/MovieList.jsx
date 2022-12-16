@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 const MovieList = (props) => {
     const [movies,setMovies] = useState([]);
     useEffect(()=>{
-        axios.get('http://localhost:8000/api/getMovies')
-            .then((res) =>{
-                console.log(res)
-                console.log(res.data)
-                setMovies(res.data)
-            })
-            .catch((err)=>(console.log(err)))
+        axios.get('http://localhost:8000/api/getMovies',{withCredentials:true})
+        .then((res) =>{
+            console.log(res)
+            console.log(res.data)
+            setMovies(res.data)
+        })
+        .catch((err)=>(console.log(err)))
     }, [])
     const deleteMovie = (filmId) =>{
-        axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`)
+        axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`, {withCredentials:true})
             .then( res => {
                 // alert('movie deleted!');
                 let updatedList = (movies.filter)(movieItem => movieItem._id !== filmId)

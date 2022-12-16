@@ -17,7 +17,7 @@ const Update = () => {
     const navigate = useNavigate();
 
     useEffect(() =>{
-        axios.get(`http://localhost:8000/api/getMovie/${_id}`)
+        axios.get(`http://localhost:8000/api/getMovie/${_id}`,{withCredentials:true})
         .then(res => {
             setTitle(res.data.title)
             setDirector(res.data.director)
