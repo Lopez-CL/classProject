@@ -11,13 +11,13 @@ const Update = () => {
     const [boxOffice,setBoxOffice] = useState('');
     const [kidFriendly,setKidFriendly] = useState('');
     const [boxArt,setBoxArt] = useState('');
-    const [movie, setMovie] = useState({})
+    // const [movie, setMovie] = useState({})
     const [errors, setErrors] = useState({})
     const {_id} = useParams();
     const navigate = useNavigate();
 
     useEffect(() =>{
-        axios.get(`http://localhost:8000/api/getMovie/${_id}`,{withCredentials:true})
+        axios.get(`http://localhost:8000/api/getMovie/${_id}`)
         .then(res => {
             setTitle(res.data.title)
             setDirector(res.data.director)

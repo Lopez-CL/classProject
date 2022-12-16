@@ -16,6 +16,7 @@ app.use(cors({
 }))
 
 require('./config/mongoose.config');
+require('./config/jwt.config');
 require('./routes/movie.routes')(app)
 require('./routes/user.routes')(app);
 
