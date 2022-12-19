@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 
-const MovieList = (props) => {
+const MovieList = () => {
     const [movies,setMovies] = useState([]);
     useEffect(()=>{
         axios.get('http://localhost:8000/api/getMovies',{withCredentials:true})
@@ -23,7 +23,7 @@ const MovieList = (props) => {
     }
     return (
         <div>
-            <h2>Movies Added so Far!</h2>
+            <h2>Movies Added so Far!!</h2>
             {
                 movies.map((movie, index) =>(
                     <div key={index}>

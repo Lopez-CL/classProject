@@ -23,7 +23,7 @@ function App() {
           <Route path='/onemovie/:_id' element={<OneMovie/>}/>
           <Route path='/edit/movie/:_id' element={<Update/>}/>
           <Route path='/register' element={<Register/>}/>
-          <Route path='/login' element={<Login/>}/>
+          <Route path='/' element={<Login/>}/>
         </Routes>
       </BrowserRouter>
     </div>
