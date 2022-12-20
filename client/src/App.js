@@ -8,9 +8,9 @@ import Update from './components/Update';
 import NavBar from './components/NavBar';
 import Register from './components/Register';
 import Login from './components/Login';
+import axios from 'axios';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 function App() {
-  // const [movies,setMovies] = useState('secret film');
   return (
     <div className="App">
       {/* <MovieForm/>
