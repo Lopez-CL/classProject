@@ -2,8 +2,9 @@ import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 
-const MovieList = () => {
+const MovieList = (props) => {
     const [movies,setMovies] = useState([]);
+    const {socket} = props
     useEffect(()=>{
         axios.get('http://localhost:8000/api/getMovies',{withCredentials:true})
             .then((res) =>{
@@ -13,13 +14,19 @@ const MovieList = () => {
             })
             .catch((err)=>(console.log(err)))
         }, [])
+    socket.on('movieDeleted',(deletedId) =>{
+        let updatedList = (movies.filter)(movieItem => movieItem._id !== deletedId)
+            setMovies(updatedList);
+    })
     const deleteMovie = (filmId) =>{
-        axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`, {withCredentials:true})
-            .then( res => {
-                // alert('movie deleted!');
-                let updatedList = (movies.filter)(movieItem => movieItem._id !== filmId)
-                setMovies(updatedList);
-            })
+        socket.emit('deleteMovie',filmId )
+            let updatedList = (movies.filter)(movieItem => movieItem._id !== filmId)
+            setMovies(updatedList);
+        // axios.delete(`http://localhost:8000/api/deleteMovie/${filmId}`, {withCredentials:true})
+        //     .then( res => {
+        //         // alert('movie deleted!');
+
+        //     })
     }
     return (
         <div>

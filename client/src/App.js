@@ -1,6 +1,6 @@
 
 import './App.css';
-// import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieForm from './components/MovieForm';
 import MovieList from './components/MovieList';
 import OneMovie from './components/OneMovie';
@@ -9,21 +9,29 @@ import NavBar from './components/NavBar';
 import Register from './components/Register';
 import Login from './components/Login';
 import axios from 'axios';
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { io } from 'socket.io-client'
 function App() {
+  const [socket] = useState(() => io(':8000'))
+  useEffect(() => {
+    socket.on('connection', () => {
+      console.log('connected to server!')
+    })
+    return () => socket.disconnect(true)
+  }, [])
   return (
     <div className="App">
       {/* <MovieForm/>
       <MovieList/> */}
       <BrowserRouter>
-      <NavBar/>
+        <NavBar />
         <Routes>
-          <Route path='/form' element={<MovieForm />}/>
-          <Route path='/list' element={<MovieList/>}/>
-          <Route path='/onemovie/:_id' element={<OneMovie/>}/>
-          <Route path='/edit/movie/:_id' element={<Update/>}/>
-          <Route path='/register' element={<Register/>}/>
-          <Route path='/' element={<Login/>}/>
+          <Route path='/form' element={<MovieForm />} />
+          <Route path='/list' element={<MovieList socket={socket} />} />
+          <Route path='/onemovie/:_id' element={<OneMovie socket={socket} />} />
+          <Route path='/edit/movie/:_id' element={<Update />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/' element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
